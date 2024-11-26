@@ -1,20 +1,32 @@
 {
-  "name": "mephigithubactions",
-  "version": "0.0.1",
-  "main": "index.js",
+  "name": "my-gatsby-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "my-gatsby-site",
+  "author": "Dmitry Dmitriev",
+  "keywords": [
+    "gatsby"
+  ],
   "scripts": {
-    "start": "node app.js",
-    "build": "exit 0",
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
     "test": "jest"
   },
-  "author": "DDmitriev <d.dmitrieff@gmail.com>",
-  "license": "MIT",
-  "description": "",
-  "devDependencies": {
-    "jest": "^29.7.0",
-    "supertest": "^7.0.0"
-  },
   "dependencies": {
-    "express": "^4.21.1"
+    "gatsby": "^5.14.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.1",
+    "babel-jest": "^29.7.0",
+    "babel-preset-gatsby": "^3.14.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
   }
 }
