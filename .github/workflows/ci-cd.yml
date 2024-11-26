@@ -19,6 +19,7 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         results-file: 'jest-results.json'
+        create-pr-comment: false
   build:
     needs:
       - test
