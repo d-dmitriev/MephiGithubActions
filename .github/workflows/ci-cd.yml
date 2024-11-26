@@ -14,9 +14,9 @@ jobs:
       run: npm ci --legacy-peer-deps --no-audit --force --verbose 
     - name: Test
       run: npm test
-    - uses: IgnusG/jest-report-action@v2.3.3
+    - uses: im-open/process-jest-test-results@v2.2.0
       with:
-        access-token: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
   build:
     needs:
       - test
