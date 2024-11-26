@@ -23,7 +23,7 @@ jobs:
     - name: Upload Artifact
       uses: actions/upload-artifact@v4.4.3
       with:
-        name: site-${{ matrix.runs-on }}
+        name: site-${{ matrix.os }}
         path: ./public
   deploy:
     needs:
@@ -41,6 +41,7 @@ jobs:
       - name: Download All Artifacts
         uses: actions/download-artifact@v4.1.8
         with:
+          name: site-ubuntu-latest
           path: public
       - run: ls -R public
       - run: aws s3 --endpoint-url=${{ vars.ENDPOINT_URL }} sync public ${{ vars.REPO_URL }} --delete
