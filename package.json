@@ -31,7 +31,7 @@
     "jest-junit": "^16.0.0"
   },
   "jest-junit": {
-    "suiteNameTemplate": "Suite",
+    "suiteNameTemplate": "{filepath}",
     "classNameTemplate": "{classname}",
     "titleTemplate": "{title}"
   }

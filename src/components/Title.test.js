@@ -1,6 +1,6 @@
 import React from "react"
 import { render } from "@testing-library/react"
-import { Title } from "../src/components/Title"
+import { Title } from "./Title"
 
 describe("Title", () => {
     test("Displays the correct title1", () => {
