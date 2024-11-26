@@ -19,12 +19,8 @@ jobs:
       run: npm ci --legacy-peer-deps --no-audit --force --verbose 
     - name: Test
       run: npm test
-    - name: Process jest results with default
-      uses: im-open/process-jest-test-results@v2.2.0
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        results-file: 'jest-results.json'
-        create-pr-comment: false
+    - name: Create annotation for build error
+      run: echo "::error file=app.js,line=1::Missing semicolon"
   build:
     needs:
       - test
