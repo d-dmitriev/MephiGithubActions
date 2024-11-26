@@ -1,0 +1,20 @@
+{
+  "name": "mephigithubactions",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "build": "exit 0",
+    "test": "jest"
+  },
+  "author": "DDmitriev <d.dmitrieff@gmail.com>",
+  "license": "MIT",
+  "description": "",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  },
+  "dependencies": {
+    "express": "^4.21.1"
+  }
+}
