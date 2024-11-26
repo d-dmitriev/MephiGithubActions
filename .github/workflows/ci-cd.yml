@@ -20,6 +20,7 @@ jobs:
       uses: EnricoMi/publish-unit-test-result-action@v2
       if: always()
       with:
+        check_run: false
         files: |
           junit.xml
   # build:
