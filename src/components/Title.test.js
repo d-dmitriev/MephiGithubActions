@@ -9,4 +9,11 @@ describe("Tests for title component", () => {
         expect(getByTestId("hero-title")).toHaveTextContent("Gatsby is awesome!")
         // --> Test will pass
     })
+
+    test("Displays the correct title error", () => {
+        const { getByTestId } = render(<Title />)
+        // Assertion
+        expect(getByTestId("hero-title")).toHaveTextContent("Gatsby is awesome!!")
+        // --> Test will pass
+    })
 })
