@@ -4,3 +4,4 @@ public
 junit.xml
 src/gatsby-types.d.ts
 cypress/videos/
+cypress/screenshots/
