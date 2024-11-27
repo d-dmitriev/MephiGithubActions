@@ -25,11 +25,17 @@ jobs:
   test-build:
     # needs:
     #   - unit-tests
-    name: build-${{matrix.os}}
-    runs-on: ${{ matrix.os }}
-    strategy:
+    name: build-${{matrix.pair.os}}
+    runs-on: ${{ matrix.pair.os }}
+    strategy: # os: [ubuntu-latest] #, windows-latest, macos-latest, macos-13
       matrix:
-        os: [ubuntu-latest] #, windows-latest, macos-latest, macos-13
+        pair:
+          - os: ubuntu-latest
+            browser: chrome
+          - os: windows-latest
+            browser: edge
+          - os: macos-latest
+            browser: firefox
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -40,14 +46,14 @@ jobs:
       - uses: cypress-io/github-action@v6
         with:
           start: npm run serve
-          browser: chrome
+          browser: ${{ matrix.pair.browser }}
           config: baseUrl=http://localhost:9000
       # - name: Run e2e tests
       #   run: npm run test:e2e:ci
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: application-${{ matrix.os }}
+          name: application-${{ matrix.pair.os }}
           path: ./public
   # deploy:
   #   needs:
