@@ -39,7 +39,7 @@ jobs:
         run: npm run build
       - uses: cypress-io/github-action@v6
         with:
-          start: npm serve
+          start: npm run serve
           browser: chrome
       # - name: Run e2e tests
       #   run: npm run test:e2e:ci
