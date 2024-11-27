@@ -27,15 +27,17 @@ jobs:
       - unit-tests
     name: build-${{matrix.pair.os}}
     runs-on: ${{ matrix.pair.os }}
-    strategy: # os: [ubuntu-latest] #, windows-latest, macos-latest, macos-13
+    strategy:
       matrix:
         pair:
           - os: ubuntu-latest
-            browser: chrome
+            browser: firefox
           - os: windows-latest
             browser: edge
           - os: macos-latest
             browser: chrome
+          - os: macos-13
+            browser: electron
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
