@@ -24,7 +24,7 @@ jobs:
           junit.xml
   test-build:
     needs:
-      - test
+      - unit-tests
     name: build-${{matrix.os}}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -44,7 +44,7 @@ jobs:
         path: ./public
   deploy:
     needs:
-      - build
+      - test-build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4
