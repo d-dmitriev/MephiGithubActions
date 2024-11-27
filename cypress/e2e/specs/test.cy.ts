@@ -7,6 +7,6 @@ describe('empty spec', () => {
         cy.get('title').should('have.text', 'Home Page')
     })
     it('Has content', () => {
-        cy.get('main').should('have.text', 'Hello Gatsby !!!')
+        cy.get('main').should('have.text', 'Hello Gatsby !')
     })
 })

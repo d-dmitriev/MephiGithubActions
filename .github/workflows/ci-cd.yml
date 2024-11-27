@@ -52,8 +52,6 @@ jobs:
           start: npm run serve
           browser: ${{ matrix.pair.browser }}
           config: baseUrl=http://localhost:9000
-      # - name: Run e2e tests
-      #   run: npm run test:e2e:ci
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
