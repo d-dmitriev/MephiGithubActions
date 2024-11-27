@@ -37,8 +37,12 @@ jobs:
         run: npm ci
       - name: Build web application
         run: npm run build
-      - name: Run e2e tests
-        run: npm run test:e2e:ci
+      - uses: cypress-io/github-action@v6
+        with:
+          start: npm serve
+          browser: chrome
+      # - name: Run e2e tests
+      #   run: npm run test:e2e:ci
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
