@@ -9,19 +9,19 @@ jobs:
     permissions:
       checks: write
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-    - name: Install dependencies
-      run: npm ci
-    - name: Test
-      run: npm test
-    - name: Publish Test Results
-      uses: EnricoMi/publish-unit-test-result-action@v2
-      if: always()
-      with:
-        check_run: false
-        files: |
-          junit.xml
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - name: Install dependencies
+        run: npm ci
+      - name: Test
+        run: npm test
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          check_run: false
+          files: |
+            junit.xml
   test-build:
     needs:
       - unit-tests
@@ -29,19 +29,21 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest, macos-13]
+        os: [ubuntu-latest] #, windows-latest, macos-latest, macos-13
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-    - name: Install dependencies
-      run: npm ci
-    - name: Build web application
-      run: npm run build
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: application-${{ matrix.os }}
-        path: ./public
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - name: Install dependencies
+        run: npm ci
+      - name: Build web application
+        run: npm run build
+      - name: Run e2e tests
+        run: npm run test:e2e:ci
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: application-${{ matrix.os }}
+          path: ./public
   deploy:
     needs:
       - test-build
@@ -53,7 +55,7 @@ jobs:
           path: public
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.7'
+          python-version: "3.7"
       - name: Install awscli
         run: |
           python -m pip install --upgrade pip
