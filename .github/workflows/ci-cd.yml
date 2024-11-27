@@ -31,11 +31,11 @@ jobs:
       matrix:
         pair:
           - os: ubuntu-latest
-            browser: chrome
+            browser: firefox
           - os: windows-latest
             browser: edge
           - os: macos-latest
-            browser: firefox
+            browser: chrome
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
