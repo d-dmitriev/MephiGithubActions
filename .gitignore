@@ -3,3 +3,4 @@ node_modules/
 public
 junit.xml
 src/gatsby-types.d.ts
+cypress/videos/

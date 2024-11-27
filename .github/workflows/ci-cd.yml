@@ -30,7 +30,7 @@ jobs:
     strategy:
       matrix:
         pair:
-          - os: ubuntu-latest
+          - os: ubuntu-24.04
             browser: firefox
           - os: windows-latest
             browser: edge
