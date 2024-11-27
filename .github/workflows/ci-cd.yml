@@ -41,6 +41,7 @@ jobs:
         with:
           start: npm run serve
           browser: chrome
+          wait-on: "http://localhost:9000"
       # - name: Run e2e tests
       #   run: npm run test:e2e:ci
       - name: Upload Artifact
