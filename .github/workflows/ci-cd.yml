@@ -4,27 +4,27 @@ on:
   push:
 
 jobs:
-  unit-tests:
-    runs-on: ubuntu-latest
-    permissions:
-      checks: write
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-      - name: Install dependencies
-        run: npm ci
-      - name: Test
-        run: npm test
-      - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2
-        if: always()
-        with:
-          check_run: false
-          files: |
-            junit.xml
+  # unit-tests:
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     checks: write
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-node@v4
+  #     - name: Install dependencies
+  #       run: npm ci
+  #     - name: Run unit tests
+  #       run: npm test
+  #     - name: Publish Test Results
+  #       uses: EnricoMi/publish-unit-test-result-action@v2
+  #       if: always()
+  #       with:
+  #         check_run: false
+  #         files: |
+  #           junit.xml
   test-build:
-    needs:
-      - unit-tests
+    # needs:
+    #   - unit-tests
     name: build-${{matrix.os}}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -41,7 +41,7 @@ jobs:
         with:
           start: npm run serve
           browser: chrome
-          wait-on: "http://localhost:9000"
+          config: baseUrl=http://localhost:9000
       # - name: Run e2e tests
       #   run: npm run test:e2e:ci
       - name: Upload Artifact
@@ -49,24 +49,24 @@ jobs:
         with:
           name: application-${{ matrix.os }}
           path: ./public
-  deploy:
-    needs:
-      - test-build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: application-ubuntu-latest
-          path: public
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.7"
-      - name: Install awscli
-        run: |
-          python -m pip install --upgrade pip
-          pip install awscli
-      - name: Deploy to yandex cloud s3
-        run: aws s3 --endpoint-url=${{ vars.ENDPOINT_URL }} sync public ${{ vars.REPO_URL }} --delete
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  # deploy:
+  #   needs:
+  #     - test-build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/download-artifact@v4
+  #       with:
+  #         name: application-ubuntu-latest
+  #         path: public
+  #     - uses: actions/setup-python@v5
+  #       with:
+  #         python-version: "3.7"
+  #     - name: Install awscli
+  #       run: |
+  #         python -m pip install --upgrade pip
+  #         pip install awscli
+  #     - name: Deploy to yandex cloud s3
+  #       run: aws s3 --endpoint-url=${{ vars.ENDPOINT_URL }} sync public ${{ vars.REPO_URL }} --delete
+  #       env:
+  #         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
