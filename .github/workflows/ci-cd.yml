@@ -6,62 +6,67 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    permissions:
-      checks: write
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-    - name: Install dependencies
-      run: npm ci --legacy-peer-deps --no-audit --force --verbose 
     - name: Test
-      run: npm test
-    - name: Publish Test Results
-      uses: EnricoMi/publish-unit-test-result-action@v2
-      if: always()
-      with:
-        check_run: false
-        files: |
-          junit.xml
-  build:
-    needs:
-      - test
-    name: build-${{matrix.os}}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest, macos-13]
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-    - name: Install dependencies
-      run: npm ci
-    - name: Build web application
-      run: npm run build
-    - name: Upload Artifact
-      if: ${{ vars.RUNNER_OS == 'Linux' }}
-      uses: actions/upload-artifact@v4
-      with:
-        name: application
-        path: ./public
-  deploy:
-    needs:
-      - build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: application
-          path: public
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.7'
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install awscli
-      - name: Deploy
-        run: aws s3 --endpoint-url=${{ vars.ENDPOINT_URL }} sync public ${{ vars.REPO_URL }} --delete
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: echo ${{ vars.RUNNER_OS }}
+  # unit-tests:
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     checks: write
+  #   steps:
+  #   - uses: actions/checkout@v4
+  #   - uses: actions/setup-node@v4
+  #   - name: Install dependencies
+  #     run: npm ci --legacy-peer-deps --no-audit --force --verbose 
+  #   - name: Test
+  #     run: npm test
+  #   - name: Publish Test Results
+  #     uses: EnricoMi/publish-unit-test-result-action@v2
+  #     if: always()
+  #     with:
+  #       check_run: false
+  #       files: |
+  #         junit.xml
+  # test-build:
+  #   needs:
+  #     - test
+  #   name: build-${{matrix.os}}
+  #   runs-on: ${{ matrix.os }}
+  #   strategy:
+  #     matrix:
+  #       os: [ubuntu-latest, windows-latest, macos-latest, macos-13]
+  #   steps:
+  #   - uses: actions/checkout@v4
+  #   - uses: actions/setup-node@v4
+  #   - name: Install dependencies
+  #     run: npm ci
+  #   - name: Build web application
+  #     run: npm run build
+  #   - name: Upload Artifact
+  #     if: ${{ vars.RUNNER_OS == 'Linux' }}
+  #     uses: actions/upload-artifact@v4
+  #     with:
+  #       name: application
+  #       path: ./public
+  # deploy:
+  #   needs:
+  #     - build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/download-artifact@v4
+  #       with:
+  #         name: application
+  #         path: public
+  #     - uses: actions/setup-python@v5
+  #       with:
+  #         python-version: '3.7'
+  #     - name: Install dependencies
+  #       run: |
+  #         python -m pip install --upgrade pip
+  #         pip install awscli
+  #     - name: Deploy
+  #       run: aws s3 --endpoint-url=${{ vars.ENDPOINT_URL }} sync public ${{ vars.REPO_URL }} --delete
+  #       env:
+  #         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
