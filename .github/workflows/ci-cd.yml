@@ -38,7 +38,7 @@ jobs:
     - name: Build web application
       run: npm run build
     - name: Upload Artifact
-      if: ${{ RUNNER_OS == 'Linux' }}
+      if: ${{ vars.RUNNER_OS == 'Linux' }}
       uses: actions/upload-artifact@v4
       with:
         name: application
