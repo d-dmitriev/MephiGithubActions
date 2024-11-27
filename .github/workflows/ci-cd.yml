@@ -30,14 +30,14 @@ jobs:
     strategy:
       matrix:
         pair:
-          - os: ubuntu-24.04
-            browser: firefox
-          # - os: windows-latest
-          #   browser: edge
-          # - os: macos-latest
-          #   browser: chrome
-          # - os: macos-13
-          #   browser: electron
+          - os: ubuntu-latest
+            browser: chrome
+          - os: windows-latest
+            browser: edge
+          - os: macos-latest # Apple Silicon
+            browser: chrome
+          - os: macos-13 # Intle
+            browser: electron
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
