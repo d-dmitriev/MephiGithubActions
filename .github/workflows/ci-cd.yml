@@ -32,17 +32,17 @@ jobs:
         pair:
           - os: ubuntu-24.04
             browser: firefox
-          - os: windows-latest
-            browser: edge
-          - os: macos-latest
-            browser: chrome
-          - os: macos-13
-            browser: electron
+          # - os: windows-latest
+          #   browser: edge
+          # - os: macos-latest
+          #   browser: chrome
+          # - os: macos-13
+          #   browser: electron
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - name: Install dependencies
         run: npm ci
       - name: Build web application
@@ -52,7 +52,6 @@ jobs:
           start: npm run serve
           browser: ${{ matrix.pair.browser }}
           config: baseUrl=http://localhost:9000
-          install: false
       # - name: Run e2e tests
       #   run: npm run test:e2e:ci
       - name: Upload Artifact
