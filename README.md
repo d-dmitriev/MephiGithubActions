@@ -1,4 +1,4 @@
-[Ссылка на приложение] (https://mephi-home.website.yandexcloud.net/)
+[Ссылка на приложение](https://mephi-home.website.yandexcloud.net/)
 
 ### Про проект
 
